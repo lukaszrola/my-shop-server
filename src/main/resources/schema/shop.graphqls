@@ -1,0 +1,26 @@
+type Query {
+    findSaleOffers : [SaleOffer!]!
+}
+
+type Mutation {
+    addSaleOffer(saleOffer: SaleOfferInput) : SaleOffer
+}
+
+type Subscription {
+    subscribeNewOffers : [SaleOffer!]!
+}
+
+type SaleOffer {
+    id: ID!
+    name: String!
+    imageUrl: String!
+    deliveryInDays: Int!
+    priceInDollars: Int!
+}
+
+input SaleOfferInput {
+    name: String!
+    imageUrl: String!
+    deliveryInDays: Int!
+    priceInDollars: Int!
+}
