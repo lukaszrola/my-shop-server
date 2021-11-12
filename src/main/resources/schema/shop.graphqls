@@ -1,9 +1,10 @@
 type Query {
+    findOfferById(id: ID!): SaleOffer!
     findSaleOffers : [SaleOffer!]!
 }
 
 type Mutation {
-    addSaleOffer(saleOffer: SaleOfferInput) : SaleOffer
+    addSaleOffer(saleOffer: SaleOfferInput) : SaleOffer!
 }
 
 type Subscription {

@@ -7,6 +7,7 @@ import com.rola.lukasz.myshop.repository.SalesOfferRepository
 import org.reactivestreams.Publisher
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Sinks
+import java.util.*
 
 @DgsComponent
 class SalesOfferDataFetcher(private val salesOfferRepository: SalesOfferRepository) {
@@ -19,6 +20,11 @@ class SalesOfferDataFetcher(private val salesOfferRepository: SalesOfferReposito
     @DgsQuery
     fun findSaleOffers(): List<SaleOffer> {
         return salesOfferRepository.allSaleOffers()
+    }
+
+    @DgsQuery
+    fun findOfferById(@InputArgument id: String): SaleOffer{
+        return salesOfferRepository.findSaleOfferById(UUID.fromString(id))
     }
 
     @DgsMutation

@@ -3,6 +3,7 @@ package com.rola.lukasz.myshop.repository
 import com.rola.lukasz.myshop.model.SaleOffer
 import com.rola.lukasz.myshop.model.SaleOfferInput
 import org.springframework.stereotype.Repository
+import java.lang.RuntimeException
 import java.util.*
 
 @Repository
@@ -42,4 +43,9 @@ class SalesOfferRepository {
 
     fun allSaleOffers(): List<SaleOffer> = offers.toList()
 
+    fun findSaleOfferById(id: UUID): SaleOffer {
+        return offers.firstOrNull { it.id == id } ?: throw SalesOfferRepositoryException("Offer with if $id not found")
+    }
 }
+
+class SalesOfferRepositoryException(message: String?) : Exception(message)
