@@ -1,9 +1,8 @@
-package com.rola.lukasz.myshop.repository
+package com.rola.lukasz.myshop.offer.repository
 
-import com.rola.lukasz.myshop.model.SaleOffer
-import com.rola.lukasz.myshop.model.SaleOfferInput
+import com.rola.lukasz.myshop.offer.model.SaleOffer
+import com.rola.lukasz.myshop.offer.model.SaleOfferInput
 import org.springframework.stereotype.Repository
-import java.lang.RuntimeException
 import java.util.*
 
 @Repository
@@ -14,14 +13,16 @@ class SalesOfferRepository {
             name = "MacBook Pro 2019",
             imageUrl = "https://images.unsplash.com/photo-1569770218135-bea267ed7e84?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
             deliveryInDays = 3,
-            priceInDollars = 3500
+            priceInDollars = 3500,
+            sellerId = UUID.fromString("f8035e24-a14b-4557-a25e-0bdbec85eb1f")
         ),
         SaleOffer(
             id = UUID.randomUUID(),
             name = "IPhone 10",
             imageUrl = "https://images.unsplash.com/photo-1554933827-294c19989ff4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
             deliveryInDays = 2,
-            priceInDollars = 2000
+            priceInDollars = 2000,
+            sellerId = UUID.fromString("0ca1a570-bf10-45f8-99f4-ccf602cac483")
         )
     )
 
@@ -31,7 +32,8 @@ class SalesOfferRepository {
             name = saleOfferInput.name,
             imageUrl = saleOfferInput.imageUrl,
             deliveryInDays = saleOfferInput.deliveryInDays,
-            priceInDollars = saleOfferInput.priceInDollars
+            priceInDollars = saleOfferInput.priceInDollars,
+            sellerId = UUID.fromString(saleOfferInput.sellerId)
         )
 
         offers.add(

@@ -17,6 +17,14 @@ type SaleOffer {
     imageUrl: String!
     deliveryInDays: Int!
     priceInDollars: Int!
+    seller: User!
+}
+
+type User {
+    id: ID!,
+    name: String!,
+    address: String!,
+    phoneNumber: String!
 }
 
 input SaleOfferInput {
@@ -24,4 +32,5 @@ input SaleOfferInput {
     imageUrl: String!
     deliveryInDays: Int!
     priceInDollars: Int!
+    sellerId: ID!
 }
