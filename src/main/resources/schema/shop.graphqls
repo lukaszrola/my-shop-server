@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
     addSaleOffer(saleOffer: SaleOfferInput) : SaleOffer!
+    removeSaleOffer(id: ID!): SaleOffer!
 }
 
 type Subscription {

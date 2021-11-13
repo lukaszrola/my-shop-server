@@ -15,12 +15,12 @@ class SalesOfferDataFetcher(private val salesOfferRepository: SalesOfferReposito
     private val emitter = Sinks.many().replay().latest<List<SaleOffer>>()
 
     init {
-        emitter.tryEmitNext(salesOfferRepository.allSaleOffers())
+        emitter.tryEmitNext(salesOfferRepository.allOffers())
     }
 
     @DgsQuery
     fun findSaleOffers(): List<SaleOffer> {
-        return salesOfferRepository.allSaleOffers()
+        return salesOfferRepository.allOffers()
     }
 
     @DgsQuery
@@ -28,23 +28,31 @@ class SalesOfferDataFetcher(private val salesOfferRepository: SalesOfferReposito
         return salesOfferRepository.findSaleOfferById(UUID.fromString(id))
     }
 
-    @DgsData(parentType = "SaleOffer", field = "seller")
-    fun fetchUser(dfe: DgsDataFetchingEnvironment): User{
-        val offer = dfe.getSource<SaleOffer>()
-
-        return userRepository.findUserById(offer.sellerId)
-    }
-
     @DgsMutation
     fun addSaleOffer(@InputArgument saleOffer: SaleOfferInput): SaleOffer {
         val newOffer = salesOfferRepository.addSaleOffer(saleOffer)
-        emitter.tryEmitNext(salesOfferRepository.allSaleOffers())
+        emitter.tryEmitNext(salesOfferRepository.allOffers())
 
         return newOffer
+    }
+
+    @DgsMutation
+    fun removeSaleOffer(@InputArgument id: String): SaleOffer {
+        val removedOffer = salesOfferRepository.removeSaleOffer(UUID.fromString(id))
+        emitter.tryEmitNext(salesOfferRepository.allOffers())
+
+        return removedOffer
     }
 
     @DgsSubscription
     fun subscribeNewOffers(): Publisher<List<SaleOffer>> {
         return emitter.asFlux()
+    }
+
+    @DgsData(parentType = "SaleOffer", field = "seller")
+    fun fetchUser(dfe: DgsDataFetchingEnvironment): User{
+        val offer = dfe.getSource<SaleOffer>()
+
+        return userRepository.findUserById(offer.sellerId)
     }
 }

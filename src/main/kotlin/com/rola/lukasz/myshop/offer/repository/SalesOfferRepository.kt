@@ -60,7 +60,14 @@ class SalesOfferRepository {
         return newOffer
     }
 
-    fun allSaleOffers(): List<SaleOffer> = offers.toList()
+    fun removeSaleOffer(id: UUID): SaleOffer {
+        val offer = findSaleOfferById(id)
+        offers.remove(offer)
+
+        return offer
+    }
+
+    fun allOffers(): List<SaleOffer> = offers.toList()
 
     fun findSaleOfferById(id: UUID): SaleOffer {
         return offers.firstOrNull { it.id == id } ?: throw SalesOfferRepositoryException("Offer with if $id not found")
