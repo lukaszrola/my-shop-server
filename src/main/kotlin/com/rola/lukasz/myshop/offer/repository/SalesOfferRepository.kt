@@ -1,5 +1,6 @@
 package com.rola.lukasz.myshop.offer.repository
 
+import com.rola.lukasz.myshop.offer.model.Component
 import com.rola.lukasz.myshop.offer.model.SaleOffer
 import com.rola.lukasz.myshop.offer.model.SaleOfferInput
 import org.springframework.stereotype.Repository
@@ -14,6 +15,12 @@ class SalesOfferRepository {
             imageUrl = "https://images.unsplash.com/photo-1569770218135-bea267ed7e84?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
             deliveryInDays = 3,
             priceInDollars = 3500,
+            specification = listOf(
+                Component("Processor", "Intel Core i7-11700K"),
+                Component("Memory", "16 GB"),
+                Component("Graphic Card", "AMD Radeon Pro 5500M" ),
+                Component("Disk", "500 GB, SSD")
+            ),
             sellerId = UUID.fromString("f8035e24-a14b-4557-a25e-0bdbec85eb1f")
         ),
         SaleOffer(
@@ -22,6 +29,12 @@ class SalesOfferRepository {
             imageUrl = "https://images.unsplash.com/photo-1554933827-294c19989ff4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
             deliveryInDays = 2,
             priceInDollars = 2000,
+            specification = listOf(
+                Component("Chipset Model","Apple A15 Bionic"),
+                Component("Network", "Unlocked"),
+                Component("Operating System", "IOS"),
+                Component(name = "Storage Capacity","128 GB")
+            ),
             sellerId = UUID.fromString("0ca1a570-bf10-45f8-99f4-ccf602cac483")
         )
     )
@@ -33,6 +46,7 @@ class SalesOfferRepository {
             imageUrl = saleOfferInput.imageUrl,
             deliveryInDays = saleOfferInput.deliveryInDays,
             priceInDollars = saleOfferInput.priceInDollars,
+            specification = saleOfferInput.specification.map { it.toComponent() },
             sellerId = UUID.fromString(saleOfferInput.sellerId)
         )
 

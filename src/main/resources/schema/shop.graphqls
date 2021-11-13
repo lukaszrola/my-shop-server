@@ -18,13 +18,12 @@ type SaleOffer {
     deliveryInDays: Int!
     priceInDollars: Int!
     seller: User!
+    specification: [Component!]!
 }
 
-type User {
-    id: ID!,
-    name: String!,
-    address: String!,
-    phoneNumber: String!
+type Component {
+    name: String!
+    configuration: String!
 }
 
 input SaleOfferInput {
@@ -32,5 +31,18 @@ input SaleOfferInput {
     imageUrl: String!
     deliveryInDays: Int!
     priceInDollars: Int!
+    specification:[ComponentInput!]!
     sellerId: ID!
+}
+
+input ComponentInput {
+    name: String!
+    configuration: String!
+}
+
+type User {
+    id: ID!,
+    name: String!,
+    address: String!,
+    phoneNumber: String!
 }
