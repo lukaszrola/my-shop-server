@@ -17,8 +17,9 @@ type SaleOffer {
     imageUrl: String!
     deliveryInDays: Int!
     priceInDollars: Int!
-    seller: User!
     specification: [Component!]!
+    additionalInfo: String!
+    seller: User!
 }
 
 type Component {
@@ -32,7 +33,9 @@ input SaleOfferInput {
     deliveryInDays: Int!
     priceInDollars: Int!
     specification:[ComponentInput!]!
+    additionalInfo: String!
     sellerId: ID!
+
 }
 
 input ComponentInput {
