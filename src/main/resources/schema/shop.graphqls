@@ -35,7 +35,7 @@ input SaleOfferInput {
     priceInDollars: Int!
     specification:[ComponentInput!]!
     additionalInfo: String!
-    sellerId: ID!
+    sellerId: String!
 
 }
 
