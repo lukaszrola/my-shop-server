@@ -19,17 +19,17 @@ class SalesOfferDataFetcher(private val salesOfferRepository: SalesOfferReposito
     }
 
     @DgsQuery
-    fun findSaleOffers(): List<SaleOffer> {
+    fun offers(): List<SaleOffer> {
         return salesOfferRepository.allOffers()
     }
 
     @DgsQuery
-    fun findOfferById(@InputArgument id: String): SaleOffer{
+    fun offer(@InputArgument id: String): SaleOffer{
         return salesOfferRepository.findSaleOfferById(UUID.fromString(id))
     }
 
     @DgsMutation
-    fun addSaleOffer(@InputArgument saleOffer: SaleOfferInput): SaleOffer {
+    fun addOffer(@InputArgument saleOffer: SaleOfferInput): SaleOffer {
         val newOffer = salesOfferRepository.addSaleOffer(saleOffer)
         emitter.tryEmitNext(salesOfferRepository.allOffers())
 
@@ -37,15 +37,15 @@ class SalesOfferDataFetcher(private val salesOfferRepository: SalesOfferReposito
     }
 
     @DgsMutation
-    fun removeSaleOffer(@InputArgument id: String): SaleOffer {
+    fun removeOffer(@InputArgument id: String): SaleOffer {
         val removedOffer = salesOfferRepository.removeSaleOffer(UUID.fromString(id))
         emitter.tryEmitNext(salesOfferRepository.allOffers())
 
         return removedOffer
     }
 
-    @DgsSubscription
-    fun subscribeNewOffers(): Publisher<List<SaleOffer>> {
+    @DgsSubscription(field = "offers")
+    fun subscribeOffers(): Publisher<List<SaleOffer>> {
         return emitter.asFlux()
     }
 
