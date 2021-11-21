@@ -4,8 +4,8 @@ type Query {
 }
 
 type Mutation {
-    addSaleOffer(saleOffer: SaleOfferInput) : SaleOffer!
-    removeSaleOffer(id: ID!): SaleOffer!
+    addOffer(saleOffer: SaleOfferInput) : SaleOffer!
+    removeOffer(id: ID!): SaleOffer!
 }
 
 type Subscription {
